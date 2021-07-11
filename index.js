@@ -6,7 +6,6 @@ const config = require('./lib/config/Gerais/config.json')
 const canvas = require('discord-canvas')
 const { mylang } = require('./lib/lang')
 const axios = require('axios')
-const yuivs = require('./package.json')
 var welcOn = 0;var abayo = 0
 
 // Quantidade máxima de Backups do Level.json e MsgCount.json
@@ -15,30 +14,29 @@ const maxBackups = Math.floor(Math.random() * 3) + 1
 // Apaga a pasta de cache do Chrome caso exista
 if (fs.existsSync('./logs/Chrome')) { fs.rmdirSync('./logs/Chrome', { recursive: true }) }
 
-// Verifica por mudanças e se encontrado, recarrega o arquivo
-const watchFile = (file) => { fs.watchFile(file, async () => { return new Promise((resolve, reject) => { try { console.log(color('[EDIÇÃO]', 'crimson'), color(`Uuuu! Melhorias em tempo real! Irei usar agora mesmo, estou reiniciando!`, 'yellow'));delete require.cache[require.resolve(file)];resolve();console.log(color('[EDIÇÃO]', 'lime'), color(`Reiniciei com sucesso! Testa, Testa!`, 'yellow')) } catch (error) { reject(error) } }) }) }
 
-// Cria um cliente de inicialização da BOT
-const start = async (kill = new Client()) => {
-	const getversion = await axios.get('https://raw.githubusercontent.com/KillovSky/yui/main/package.json')
-	if (yuivs.version !== getversion.data.version) { console.log(color('\n[UPDATE]', 'crimson'), color(`Uma nova versão da Yui foi lançada [${getversion.data.version}], atualize para obter melhorias e correções! → ${yuivs.homepage}`, 'gold')) }
-	console.log(color('\n[SUPORTE]', 'magenta'), color(`https://bit.ly/3owVJoB | ${yuivs.bugs.url}\n`, 'lime'), color(`\n[Yui ${yuivs.version} - BETA]`, 'magenta'), color('Estamos prontos para começar mestre!\n', 'lime'))
+const start = (kill = new Client()) => {
+	console.log(
+	  color("\n[DEV]", "red"),
+	  color(
+		"- Pyon Mabuchi"
+	  )
+	);
+	console.log(
+	  color("[Yui]", "red"),
+	  color("Minha inicialização foi concluída, você pode usar agora...\n")
+	);
+	
+	
+		// Forçar recarregamento caso obtenha erros
+		kill.onStateChanged((state) => {
+			console.log(color('[RELOAD]', 'red'), color('Isso pode ser ignorado →', 'green'), color(state, 'yellow'))
+			if (state === 'UNPAIRED' || state === 'CONFLICT' || state === 'UNLAUNCHED') kill.forceRefocus()
+		})
 	
 	// Auto Recarregamento da Config.js sem reiniciar, para casos de edições em tempo real, use com cautela
 	//await watchFile('./config.js')
 	
-	// Backup dos arquivos toda vez que religar a BOT
-	const whotobackup = ['level.json', 'custom.json', 'greetings.json', 'cmds.json', 'functions.json']
-	for (let i = 0; i < whotobackup.length; i++) {
-		var fileReadBk = JSON.parse(fs.readFileSync('./lib/config/Gerais/' + whotobackup[i]))
-		await fs.writeFileSync(`./lib/config/Gerais/Backup/${maxBackups}-${whotobackup[i]}`, JSON.stringify(fileReadBk))
-	}
-	
-	// Forçar recarregamento caso obtenha erros
-	kill.onStateChanged(async (state) => {
-		console.log(color('[RELOAD]', 'red'), color('Isso pode ser ignorado →', 'lime'), color(state, 'yellow'))
-		if (state === 'UNPAIRED' || state === 'CONFLICT' || state === 'UNLAUNCHED') await kill.forceRefocus()
-	})
 
 	// Lê as mensagens, se você quer usar o watchFile, mude para o require | Ative a await se quiser auto limpeza de cache, 3000 significa limpeza a cada 3000 mensagens
 	kill.onMessage(async (message) => {
@@ -131,5 +129,5 @@ const start = async (kill = new Client()) => {
 
 }
 
-// Cria uma sessão da Yui
+// Cria uma sessão da Íris
 create(options(start)).then((kill) => start(kill)).catch((err) => console.error(err))
