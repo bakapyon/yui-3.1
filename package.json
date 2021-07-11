@@ -2,13 +2,18 @@
   "name": "yui",
   "version": "3.1.0",
   "private": "true",
-  "description": "A bot oficial do horizon!",
+  "description": "A bot oficial do Horizon!",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo → Sem testes! Para iniciar digite \"npm start\" ou \"node index.js.\"! && exit 1"
   },
-  "author": "Pyon",
+  "author": "pyon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bakapyon/yui-3.1.git"
+  },
+  "homepage": "https://github.com/bakapyon/yui-3.1",
   "dependencies": {
     "@dada513/wikipedia-search": "^1.0.1",
     "@open-wa/wa-automate": "^4.8.2",
