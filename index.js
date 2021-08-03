@@ -6,6 +6,7 @@ const config = require('./lib/config/Gerais/config.json')
 const canvas = require('discord-canvas')
 const { mylang } = require('./lib/lang')
 const axios = require('axios')
+const yuivs = require('./package.json')
 var welcOn = 0;var abayo = 0
 
 // Quantidade máxima de Backups do Level.json e MsgCount.json
@@ -14,29 +15,28 @@ const maxBackups = Math.floor(Math.random() * 3) + 1
 // Apaga a pasta de cache do Chrome caso exista
 if (fs.existsSync('./logs/Chrome')) { fs.rmdirSync('./logs/Chrome', { recursive: true }) }
 
+// Verifica por mudanças e se encontrado, recarrega o arquivo
+const watchFile = (file) => { fs.watchFile(file, async () => { return new Promise((resolve, reject) => { try { console.log(color('[EDIÇÃO]', 'crimson'), color(`Uuuu! Melhorias em tempo real! Irei usar agora mesmo, estou reiniciando!`, 'yellow'));delete require.cache[require.resolve(file)];resolve();console.log(color('[EDIÇÃO]', 'lime'), color(`Reiniciei com sucesso! Testa, Testa!`, 'yellow')) } catch (error) { reject(error) } }) }) }
 
-const start = (kill = new Client()) => {
-	console.log(
-	  color("\n[DEV]", "red"),
-	  color(
-		"- Pyon Mabuchi"
-	  )
-	);
-	console.log(
-	  color("[Yui]", "red"),
-	  color("Minha inicialização foi concluída, você pode usar agora...\n")
-	);
+// Cria um cliente de inicialização da BOT
+const start = async (kill = new Client()) => {
+	console.log(color('\n[SUPORTE]', 'magenta'), color(`https://bit.ly/3owVJoB | ${yuivs.bugs.url}\n`, 'lime'), color(`\n[ÍRIS ${yuivs.version} - BETA]`, 'magenta'), color('Estamos prontos para começar mestre!\n', 'lime'))
 	
-	
-		// Forçar recarregamento caso obtenha erros
-		kill.onStateChanged((state) => {
-			console.log(color('[RELOAD]', 'red'), color('Isso pode ser ignorado →', 'green'), color(state, 'yellow'))
-			if (state === 'UNPAIRED' || state === 'CONFLICT' || state === 'UNLAUNCHED') kill.forceRefocus()
-		})
-	
-	// Auto Recarregamento da Config.js sem reiniciar, para casos de edições em tempo real, use com cautela
+	// Auto Recarregamento da Config.js sem reiniciar, para casos de edições em tempo real, use com cautela e ative a require la em baixo se usar
 	//await watchFile('./config.js')
 	
+	// Backup dos arquivos toda vez que religar a BOT
+	const whotobackup = ['level.json', 'custom.json', 'greetings.json', 'cmds.json', 'functions.json']
+	for (let i = 0; i < whotobackup.length; i++) {
+		var fileReadBk = JSON.parse(fs.readFileSync('./lib/config/Gerais/' + whotobackup[i]))
+		await fs.writeFileSync(`./lib/config/Gerais/Backup/${maxBackups}-${whotobackup[i]}`, JSON.stringify(fileReadBk))
+	}
+	
+	// Forçar recarregamento caso obtenha erros
+	kill.onStateChanged(async (state) => {
+		console.log(color('[RELOAD]', 'red'), color('Isso pode ser ignorado →', 'lime'), color(state, 'yellow'))
+		if (state === 'UNPAIRED' || state === 'CONFLICT' || state === 'UNLAUNCHED') await kill.forceRefocus()
+	})
 
 	// Lê as mensagens, se você quer usar o watchFile, mude para o require | Ative a await se quiser auto limpeza de cache, 3000 significa limpeza a cada 3000 mensagens
 	kill.onMessage(async (message) => {
@@ -44,6 +44,7 @@ const start = (kill = new Client()) => {
 		await kconfig(kill, message) // require('./config')(kill, message)
 	})
 	// Você pode rodar certos comandos(/enviar por exemplo) pelo próprio WhatsApp da BOT trocando o "kill.onMessage" por "kill.onAnyMessage", não recomendado.
+	// Caso deseje, faça um "wa.me" do próprio número e rode os comandos em um chat consigo mesmo.
 
 	// Funções para caso seja adicionada em um grupo
 	kill.onAddedToGroup(async (chat) => {
@@ -101,7 +102,7 @@ const start = (kill = new Client()) => {
 					if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
 					const welcomer = await new canvas.Welcome().setUsername(pushname).setDiscriminator(event.who.substring(6, 10)).setMemberCount(groupMetadata.participants.length).setGuildName(name).setAvatar(profile).setText("title", `BEM VINDO`).setText("message", `VOCÊ ESTÁ NO {server}`).setText("member-count", `VOCÊ É O MEMBRO N° {count}`).setColor('border', '#00100C').setColor('username-box', '#00100C').setColor('discriminator-box', '#00100C').setColor('message-box', '#00100C').setColor('title', '#6577AF').setOpacity("username-box", 0.6).setOpacity("discriminator-box", 0.6).setOpacity("message-box", 0.6).setOpacity("border", 0.4).setBackground('https://images.wallpaperscraft.com/image/landscape_art_road_127350_1280x720.jpg').toAttachment()
 					await kill.sendFile(event.chat, `data:image/png;base64,${welcomer.toBuffer().toString('base64')}`, 'welcome.png', mylang(config.Language).welcome(pushname, name))
-					await kill.sendPtt(event.chat, 'https://www.myinstants.com/media/sounds/welcome-mercador-resident-evil-4.mp3')
+					await kill.sendPtt(event.chat, 'https://cdn.glitch.com/550c0ba3-b3da-440b-83e7-903364e3ae4b%2Fbv.ogg')
 					welcOn = 0
 					console.log(color('[ENTROU]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) entrou no grupo ${name}...`, 'yellow'))
 				}
@@ -111,7 +112,7 @@ const start = (kill = new Client()) => {
 				if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
 				const bye = await new canvas.Goodbye().setUsername(pushname).setDiscriminator(event.who.substring(6, 10)).setMemberCount(groupMetadata.participants.length).setGuildName(name).setAvatar(profile).setText("title", `ADEUS`).setText("message", `SAIU DO {server}`).setText("member-count", `ELE FOI O MEMBRO N° {count}`).setColor('border', '#00100C').setColor('username-box', '#00100C').setColor('discriminator-box', '#00100C').setColor('message-box', '#00100C').setColor('title', '#6577AF').setOpacity("username-box", 0.6).setOpacity("discriminator-box", 0.6).setOpacity("message-box", 0.6).setOpacity("border", 0.4).setBackground('https://images.wallpaperscraft.com/image/landscape_art_road_127350_1280x720.jpg').toAttachment()
 				await kill.sendFile(event.chat, `data:image/png;base64,${bye.toBuffer().toString('base64')}`, 'welcome.png', mylang(config.Language).bye(pushname))
-				await kill.sendPtt(event.chat, 'https://media1.vocaroo.com/mp3/1aNWZ9vQa2CT')
+				await kill.sendPtt(event.chat, 'https://cdn.glitch.com/550c0ba3-b3da-440b-83e7-903364e3ae4b%2Ftriste.mp3')
 				abayo = 0
 				console.log(color('[SAIU/BAN]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) saiu ou foi banido do grupo ${name}...`, 'yellow'))
 			}
