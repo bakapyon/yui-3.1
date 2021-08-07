@@ -119,7 +119,7 @@ const start = async (kill = new Client()) => {
 		} catch (err) { console.log(err);welcOn = 0;abayo = 0 }
 	})
 
-	// Bloqueia na call
+	// Bloqueia na calll
 	kill.onIncomingCall(async (callData) => {
 		try {
 			await kill.sendText(callData.peerJid, mylang(config.Language).blockcalls())
