@@ -20,7 +20,7 @@ const watchFile = (file) => { fs.watchFile(file, async () => { return new Promis
 
 // Cria um cliente de inicialização da BOT
 const start = async (kill = new Client()) => {
-	console.log(color('\n[SUPORTE]', 'magenta'), color(`https://bit.ly/3owVJoB | ${yuivs.bugs.url}\n`, 'lime'), color(`\n[ÍRIS ${yuivs.version} - BETA]`, 'magenta'), color('Estamos prontos para começar mestre!\n', 'lime'))
+	console.log(color('\n[SUPORTE]', 'magenta'), color(`https://chat.whatsapp.com/Hop7HMRAipPLX1Pr0aD8yx | ${yuivs.bugs.url}\n`, 'lime'), color(`\n[YUI-CHAN ${yuivs.version} - BETA]`, 'magenta'), color('Estamos prontos para começar pyon!\n', 'lime'))
 	
 	// Auto Recarregamento da Config.js sem reiniciar, para casos de edições em tempo real, use com cautela e ative a require la em baixo se usar
 	//await watchFile('./config.js')
@@ -130,5 +130,5 @@ const start = async (kill = new Client()) => {
 
 }
 
-// Cria uma sessão da yui
+// Cria uma sessão da Yui
 create(options(start)).then((kill) => start(kill)).catch((err) => console.error(err))
