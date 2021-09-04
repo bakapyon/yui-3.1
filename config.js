@@ -206,8 +206,8 @@ module.exports = kconfig = async (kill, message) => {
 		if (isGroupMsg && isxp && !gaming.isWin(user) && !isBlocked) {
 			try {
 				await gaming.wait(user);var gainedXP = Math.floor(Math.random() * Number(config.Max_XP_Earn)) + Number(config.Min_XP_Earn);const usuarioLevel = await gaming.getValue(user, nivel, 'level')
-				if (functions[0].underworld.includes(user)) { gainedXP = parseInt(gainedXP + (usuarioLevel * 5), 10) } // Beneficio de guilda underworld, XP 5x mais
-				if (functions[0].aincrad.includes(user)) { gainedXP = parseInt(gainedXP + (usuarioLevel * 3), 10) } // Beneficio de guilda aincrad, XP 3x mais
+				if (functions[0].wolves.includes(user)) { gainedXP = parseInt(gainedXP + (usuarioLevel * 5), 10) } // Beneficio de guilda wolves, XP 5x mais
+				if (functions[0].dragons.includes(user)) { gainedXP = parseInt(gainedXP + (usuarioLevel * 3), 10) } // Beneficio de guilda dragons, XP 3x mais
 				await gaming.addValue(user, Number(gainedXP), nivel, 'xp')
 				const haveXptoUp = await gaming.getValue(user, nivel, 'xp')
 				if (getReqXP(checkLvL) <= haveXptoUp) {
@@ -636,11 +636,11 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			// LEMBRE-SE, REMOVER CREDITO E CRIME E PROIBIDO	
-			case 'horizon':
+			case 'horizon':;case 'grupo':
 				if (isGroupMsg) return await kill.reply(from, mess.sopv(), id)
-				await kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/LQnDkvGJgd1J8CoTmA9HDx', '\nEsse grupo principal da Yui.')
+				await kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/Hop7HMRAipPLX1Pr0aD8yx', '\nEsse grupo principal da Yui.')
 				break
-				
+
 			case 'revoke':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
 				if (!isGroupAdmins) return await kill.reply(from, mess.soademiro(), id)
@@ -1333,7 +1333,7 @@ module.exports = kconfig = async (kill, message) => {
 						await translate(fmylife, region).then((lifes) => { fuckALLife = lifes })
 						await translate(getHappyness, region).then((love) => { getGirlfriend = love })
 					}
-					if (functions[0].aincrad.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* aincrad' } else if (functions[0].underworld.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* underworld' }
+					if (functions[0].dragons.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* dragons' } else if (functions[0].wolves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* wolves' }
 					const statesgp = await kill.getAllGroups()
 					for (let ids of statesgp) { const chatPersons = await kill.getGroupMembersId(`${ids.contact.id}`);if (chatPersons.includes(qmid)) { const groupInfo = await kill.getGroupInfo(`${ids.contact.id}`);stateOrigin += `\n➸ ${groupInfo.title}` } }
 					Object.keys(custom).forEach((i) => { if (custom[i].user == qmid) { customRec = `\n\n🌟 *Nota:* ${custom[i].msg}` } })
@@ -1920,9 +1920,29 @@ module.exports = kconfig = async (kill, message) => {
 				} else return await kill.reply(from, mess.sogrupo(), id)
 				break
 				
-				case 'ping':
-					await kill.sendText(from, `Yataaaa, estou em operação!\n_Minha velocidade de resposta é de ${processTime(t, moment())} segundos._`)
-					break
+			case 'ping':
+				const rTime = (seconds) => {
+					const pad = (s) => { return (s < 10 ? '0' : '') + s }
+					var hours = Math.floor(seconds / (60*60)); var minutes = Math.floor(seconds % (60*60) / 60); var seconds = Math.floor(seconds % 60)
+					return `${pad(hours)} horas | ${pad(minutes)} minutos | ${pad(seconds)} segundos - HH:MM:SS`
+				}
+				const osUptime = () => {
+					var up_sec = os.uptime(); var up_min = up_sec / 60; var up_hour = up_min / 60; up_sec = Math.floor(up_sec); up_min = Math.floor(up_min); up_hour = Math.floor(up_hour); up_hour = up_hour % 60; up_min = up_min % 60; up_sec = up_sec % 60
+					return `${up_hour} horas | ${up_min} minutos | ${up_sec} segundos - HH:MM:SS`
+				}
+				const ramMemory = () => {
+					var allRam = os.totalmem(); var kbRam = allRam/1024; var mbRam = kbRam/1024; var gbRam = mbRam/1024; kbRam = Math.floor(kbRam); mbRam = Math.floor(mbRam); gbRam = Math.floor(gbRam); mbRam = mbRam%1024; kbRam = kbRam%1024; allRam = allRam%1024;
+					return `${gbRam}GB | ${mbRam}MB | ${kbRam}KB | ${allRam} Bytes`
+				}
+				const timeBot = rTime(process.uptime())
+				const loadedMsg = await kill.getAmountOfLoadedMessages()
+				const chatIds = await kill.getAllChatIds()
+				const groups = await kill.getAllGroups()
+				const zapVer = await kill.getWAVersion()
+				const botBat = await kill.getBatteryLevel()
+				const isEnergy = await kill.getIsPlugged()
+				await kill.reply(from, mess.stats(timeBot, osUptime, ramMemory, os, loadedMsg, groups, chatIds, processTime, t, moment, zapVer, botBat, isEnergy), id)
+				break
 				
 			case 'join':
 				if (args.length == 0) return await kill.reply(from, mess.nolink(), id)
@@ -2671,8 +2691,7 @@ module.exports = kconfig = async (kill, message) => {
 				} else return await kill.reply(from, mess.soademiro(), id)
 				break
 				
-			case 'level':
-			case 'l':	
+			case 'level':;case 'l':
 				if (!isxp) return await kill.reply(from, mess.needxpon(), id)
 				if (mentionedJidList.length !== 0) lvlusrph = await kill.getContact(mentionedJidList[0])
 				var yourName = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? lvlusrph.pushname : pushname)
@@ -2759,8 +2778,7 @@ module.exports = kconfig = async (kill, message) => {
 				}
 				break
 				
-			case 'ranking':
-			case 'p':	
+			case 'ranking':;case 'p':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
 				nivel.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
 				let board = '-----[ *RANKING DE XP* ]----\n\n'
@@ -2842,7 +2860,7 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.sendTextWithMentions(from, `@${user.replace('@c.us', '')}`)
 				break
 				
-			case 'nivel':; case 'n':
+			case 'nivel':;case 'n':
 				var qualDeles = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? mentionedJidList[0] : user)
 				if (mentionedJidList.length !== 0) lvlusrnl = await kill.getContact(mentionedJidList[0])
 				var yourfkName = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? lvlusrnl.pushname : pushname)
@@ -2883,7 +2901,7 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			// Obrigado pela base Jon
-			case 'papel':;case 'wallpaper':
+			case 'wallhaven':;case 'wallpaper':;case 'wall':
 				if (args.length == 0) return await kill.reply(from, mess.noargs() + 'wallpaper name/nome/nombre.', id)
 				await kill.reply(from, mess.wait(), id)
 				try {
@@ -3473,8 +3491,8 @@ module.exports = kconfig = async (kill, message) => {
 				const checkUserXP = await gaming.getValue(user, nivel, 'xp');const getUsrLevel = await gaming.getValue(user, nivel, 'level')
 				var xpSteal = parseInt(stealAlvo / 10, 10);var stealGain = Math.floor(Math.random() * xpSteal + Number(lvpc)) + Number(lvpc);var stealLose = Number(-stealGain)
 				for (let i = 0; i < 10; i++) { if (stealLose < -checkUserXP || isNaN(stealGain) || isNaN(stealLose) || stealGain > Number(config.Max_Steal)) { stealGain = parseInt(stealGain / 2, 10);stealLose = Number(-stealGain) } }
-				if (functions[0].aincrad.includes(theStealK)) { lvpc = parseInt(lvpc + (getUsrLevel / 3), 10) } // Beneficio da Guilda de Ladrões, Steal melhora a cada nível, sem limite
-				if (functions[0].underworld.includes(theStealK)) { lvpc = parseInt(lvpc + (getUsrLevel / 5), 10) } // Beneficio da Guilda underworld, melhora o Steal mas com limitação
+				if (functions[0].dragons.includes(theStealK)) { lvpc = parseInt(lvpc + (getUsrLevel / 3), 10) } // Beneficio da Guilda de Ladrões, Steal melhora a cada nível, sem limite
+				if (functions[0].wolves.includes(theStealK)) { lvpc = parseInt(lvpc + (getUsrLevel / 5), 10) } // Beneficio da Guilda wolves, melhora o Steal mas com limitação
 				if (lvpc > 70) { await kill.sendTextWithMentions(from, mess.stealwkd(theStealK, stealGain)) } else { await kill.sendTextWithMentions(from, mess.stealfail(theStealK, stealLose)) }
 				if (lvpc > 70) { await gaming.addValue(user, Number(stealGain), nivel, 'xp') } else { await gaming.addValue(user, Number(stealLose), nivel, 'xp') }
 				if (lvpc > 70) { await gaming.addValue(theStealK, Number(stealLose), nivel, 'xp') } else { await gaming.addValue(theStealK, Number(stealGain), nivel, 'xp') }
@@ -4198,8 +4216,7 @@ module.exports = kconfig = async (kill, message) => {
 				} else return await kill.reply(from, mess.sogrupo(), id)
 				break
 				
-			case 'tictac':
-			case '#':	
+			case 'tictac':;case '#':
 				if (args.length == 0 || args[0].toLowerCase() == '-help') return await kill.reply(from, mess.tictactoe(), id);const jogadaPlayer = args[0].toLowerCase()
 				const theplayer2 = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? mentionedJidList[0] : null)
 				if (theplayer2 !== null) isValidGame = 1
@@ -4306,10 +4323,10 @@ module.exports = kconfig = async (kill, message) => {
 			case 'guild':;case 'guilda':
 				const waitToChange = await gaming.getLimit(user, guildlimit)
 				if (gaming.isLimit(waitToChange) == 1) return await kill.reply(from, mess.waitNewGuild(), id)
-				if (args.length !== 0 && args[0].toLowerCase() == '-aincrad' || args.length !== 0 && args[0].toLowerCase() == '-underworld') {
-					if (functions[0].aincrad.includes(user) && args[0].toLowerCase() == '-aincrad' || functions[0].underworld.includes(user) && args[0].toLowerCase() == '-underworld') return await kill.reply(from, mess.onGuild(), id)
-					if (functions[0].aincrad.includes(user) || functions[0].underworld.includes(user)) { await kill.reply(from, mess.changeGuild(), id);functions[0].underworld.splice(user, 1);functions[0].aincrad.splice(user, 1) }
-					if (args[0].toLowerCase() == '-aincrad') { functions[0].aincrad.push(user) } else if (args[0].toLowerCase() == '-underworld') { functions[0].underworld.push(user) }
+				if (args.length !== 0 && args[0].toLowerCase() == '-dragons' || args.length !== 0 && args[0].toLowerCase() == '-wolves') {
+					if (functions[0].dragons.includes(user) && args[0].toLowerCase() == '-dragons' || functions[0].wolves.includes(user) && args[0].toLowerCase() == '-wolves') return await kill.reply(from, mess.onGuild(), id)
+					if (functions[0].dragons.includes(user) || functions[0].wolves.includes(user)) { await kill.reply(from, mess.changeGuild(), id);functions[0].wolves.splice(user, 1);functions[0].dragons.splice(user, 1) }
+					if (args[0].toLowerCase() == '-dragons') { functions[0].dragons.push(user) } else if (args[0].toLowerCase() == '-wolves') { functions[0].wolves.push(user) }
 					await fs.writeFileSync('./lib/config/Gerais/functions.json', JSON.stringify(functions))
 					await kill.reply(from, mess.newGuild(), id)
 					if (noLimits == 0) await gaming.addLimit(user, guildlimit, './lib/config/Gerais/limit.json')
@@ -4320,43 +4337,35 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, '⚠️ [Alerta de Spoiler] ⚠️\n\nAnime: [Digite o nome do anime] ​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​\n\n\n\n[Você pode colocar seu spoiler aqui.]', id)
 				break
 				
-			case 'aincrad':
+			case 'dragons':;case 'hunters dragons':;case 'hunters':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
-				let claladrao = '----- [ *GUILDA aincrad* ] -----\n\n'
+				let claladrao = '----- [ *GUILDA HUNTERS DRAGONS* ] -----\n\n'
 				try {
-					for (let i = 0; i < functions[0].aincrad.length; i++) {
-						const identladrao = await kill.getContact(functions[0].aincrad[i])
-						var getLadrao = identladrao.pushname == null ? 'wa.me/' + functions[0].aincrad[i].replace('@c.us', '') : identladrao.pushname + ` - [wa.me/${functions[0].aincrad[i].replace('@c.us', '')}]`
+					for (let i = 0; i < functions[0].dragons.length; i++) {
+						const identladrao = await kill.getContact(functions[0].dragons[i])
+						var getLadrao = identladrao.pushname == null ? 'wa.me/' + functions[0].dragons[i].replace('@c.us', '') : identladrao.pushname + ` - [wa.me/${functions[0].dragons[i].replace('@c.us', '')}]`
 						claladrao += `${i + 1} → *${getLadrao}*\n\n`
 					}
 					await kill.sendText(from, claladrao)
 				} catch (error) { 
 					await kill.reply(from, mess.fail(), id)
-					console.log(color('[aincrad]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
+					console.log(color('[HUNTERS DRAGONS]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
 				}
 				break
-
-				case 'triste':
-      await kill.sendPtt(from, "https://cdn.glitch.com/550c0ba3-b3da-440b-83e7-903364e3ae4b%2Ftriste.mp3", id); 
-			break
-  
-      case 'puta':
-      await kill.sendPtt(from, "https://cdn.glitch.com/550c0ba3-b3da-440b-83e7-903364e3ae4b%2Fputa.mp3", id); 
-			break
 				
-			case 'underworld':
+			case 'wolves':;case 'black wolves':;case 'black':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
-				let clacompnos = '----- [ *GUILDA underworld* ] -----\n\n'
+				let clacompnos = '----- [ *GUILDA BLACK WOLVES* ] -----\n\n'
 				try {
-					for (let i = 0; i < functions[0].underworld.length; i++) {
-						const aGoodMan = await kill.getContact(functions[0].underworld[i])
-						var butNotReal = aGoodMan.pushname == null ? 'wa.me/' + functions[0].underworld[i].replace('@c.us', '') : aGoodMan.pushname + ` - [wa.me/${functions[0].underworld[i].replace('@c.us', '')}]`
+					for (let i = 0; i < functions[0].wolves.length; i++) {
+						const aGoodMan = await kill.getContact(functions[0].wolves[i])
+						var butNotReal = aGoodMan.pushname == null ? 'wa.me/' + functions[0].wolves[i].replace('@c.us', '') : aGoodMan.pushname + ` - [wa.me/${functions[0].wolves[i].replace('@c.us', '')}]`
 						clacompnos += `${i + 1} → *${butNotReal}*\n\n`
 					}
 					await kill.sendText(from, clacompnos)
 				} catch (error) { 
 					await kill.reply(from, mess.fail(), id)
-					console.log(color('[underworld]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
+					console.log(color('[BLACK WOLVES]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
 				}
 				break
 				
