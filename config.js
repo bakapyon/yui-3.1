@@ -2868,7 +2868,7 @@ module.exports = kconfig = async (kill, message) => {
 				const shesMSG = await gaming.getValue(qualDeles, nivel, 'msg')
 				const uzerlvl = await gaming.getValue(qualDeles, nivel, 'level')
 				const icoinqtd = await gaming.getValue(qualDeles, nivel, 'coin')
-				await kill.reply(from, `*「 STATS 」*\n\n➸ *Nick*: ${yourfkName}\n➸ *XP*: ${wtfXP} / ${getReqXP(uzerlvl)}\n➸ *Level*: ${uzerlvl}\n➸ *MSG*: ${shesMSG}\n➸ *Í-Coin*: ${icoinqtd}`, id)
+				await kill.reply(from, `*「 INFO NÍVEL 」*\n\n➸ *Nome:* ${pushname}\n➸ *XP:* ${await gaming.getValue(user, nivel, 'xp')} / ${getReqXP(checkLvL)}\n➸ *Level:* ${checkLvL} -> ${await gaming.getValue(user, nivel, 'level')} 🆙 \n➸ *Í-Coin:* ${await gaming.getValue(user, nivel, 'coin')}\n➸ *Patente:* *${patente}* 🎉`, id)
 				break
 				
 			case 'letra':
