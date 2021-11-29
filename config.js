@@ -4359,20 +4359,20 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, dddlist, id)
 				break
 				
-		       case 'quack':
+		       case 'pato':
 				await kill.reply(from, 'https://cdn.glitch.me/800b70d8-5bc1-47a8-9b10-2efdb37ee1e1%2FQUACK.mp3', id)
 				break
 				
 			case 'puta':
-				await kill.reply(from, 'lib/media/audio/puta.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/puta.mp3', id)
 				break
 				
 			case 'triste':
-				await kill.reply(from, 'lib/media/audio/tururu.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/tururu.mp3', id)
 				break
 				
 			case 'oi':
-				await kill.reply(from, 'lib/media/audio/oiii.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/oiii.mp3', id)
 				break
 				
 			// Para usar a base remova o /* e o */ e bote um nome dentro das aspas da case e em seguida sua mensagem dentro das aspas na frente do from
