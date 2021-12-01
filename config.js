@@ -1333,7 +1333,7 @@ module.exports = kconfig = async (kill, message) => {
 						await translate(fmylife, region).then((lifes) => { fuckALLife = lifes })
 						await translate(getHappyness, region).then((love) => { getGirlfriend = love })
 					}
-					if (functions[0].dragons.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* dragons' } else if (functions[0].wolves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* wolves' }
+					if (functions[0].dragons.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Dragons' } else if (functions[0].wolves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Wolves' }
 					const statesgp = await kill.getAllGroups()
 					for (let ids of statesgp) { const chatPersons = await kill.getGroupMembersId(`${ids.contact.id}`);if (chatPersons.includes(qmid)) { const groupInfo = await kill.getGroupInfo(`${ids.contact.id}`);stateOrigin += `\n➸ ${groupInfo.title}` } }
 					Object.keys(custom).forEach((i) => { if (custom[i].user == qmid) { customRec = `\n\n🌟 *Nota:* ${custom[i].msg}` } })
@@ -4364,15 +4364,15 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			case 'puta':
-				await kill.sendFile(from, 'lib/media/audio/puta.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/puta.ogg', id)
 				break
 				
 			case 'triste':
-				await kill.sendFile(from, 'lib/media/audio/tururu.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/tururu.ogg', id)
 				break
 				
 			case 'oi':
-				await kill.sendFile(from, 'lib/media/audio/oiii.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/oiii.ogg', id)
 				break
 				
 			// Para usar a base remova o /* e o */ e bote um nome dentro das aspas da case e em seguida sua mensagem dentro das aspas na frente do from
