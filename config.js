@@ -1332,13 +1332,6 @@ module.exports = kconfig = async (kill, message) => {
 						await translate(randomBible, region).then((bibles) => { GodKillsToo = bibles })
 						await translate(fmylife, region).then((lifes) => { fuckALLife = lifes })
 						await translate(getHappyness, region).then((love) => { getGirlfriend = love })
-					}
-					if (functions[0].dragons.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Dragons' } else if (functions[0].wolves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Wolves' }
-					const statesgp = await kill.getAllGroups()
-					for (let ids of statesgp) { const chatPersons = await kill.getGroupMembersId(`${ids.contact.id}`);if (chatPersons.includes(qmid)) { const groupInfo = await kill.getGroupInfo(`${ids.contact.id}`);stateOrigin += `\n➸ ${groupInfo.title}` } }
-					Object.keys(custom).forEach((i) => { if (custom[i].user == qmid) { customRec = `\n\n🌟 *Nota:* ${custom[i].msg}` } })
-					await kill.sendFileFromUrl(from, pfp, 'pfo.jpg', mess.profile(namae, myMsg, adm, muted, blocked, status, peoLevel, peoXp, getReqXP(peoLevel), playerRole) + `\n\n💴 *Í-Coin*: ${thecoinqtd}\n\n🏷️ *TAG:* #${theTagPorn}‎\n\n❇️ *Arma:* ${whatWeapon}‎\n\n📢 *Inspire-se:* ${theCitacion}‎\n\n💡 *Aprenda:* ${thisKillCats}‎\n\n🐏 *Versículo:* ${GodKillsToo}\n\n🔮 *Futuro:* ${fuckALLife}‎\n\n🌺 *Cantada:* ${getGirlfriend}\n\n🐂 *Tipo:* ${howGado}‎` + customRec + myGuild + stateOrigin, id)
-				} else return await kill.reply(from, mess.sogrupo(), id)
 				break
 				
 			case 'brainly':
