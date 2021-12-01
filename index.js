@@ -22,6 +22,7 @@ const watchFile = (file) => { fs.watchFile(file, async () => { return new Promis
 const start = async (kill = new Client()) => {
 	console.log(color('\n[SUPORTE]', 'magenta'), color(`https://chat.whatsapp.com/Hop7HMRAipPLX1Pr0aD8yx | ${yuivs.bugs.url}\n`, 'lime'), color(`\n[YUI-CHAN ${yuivs.version} - BETA]`, 'magenta'), color('Estamos prontos para começar pyon!\n', 'lime'))
 	
+	
 	// Auto Recarregamento da Config.js sem reiniciar, para casos de edições em tempo real, use com cautela e ative a require la em baixo se usar
 	//await watchFile('./config.js')
 	
