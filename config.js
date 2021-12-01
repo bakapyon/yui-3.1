@@ -1311,23 +1311,35 @@ module.exports = kconfig = async (kill, message) => {
 				
 			case 'profile':;case 'perfil':
 				if (isGroupMsg) {
-				if (mentionedJidList.length !== 0) menUser = await kill.getContact(mentionedJidList[0])
-				var qmid = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? menUser.id : user)
-				const peoXp = getXp(qmid, nivel)
-				const myMsg = getMsg(qmid, msgcount)
-				const peoLevel = getLevel(qmid, nivel)
-				const ineedxp = 5 * Math.pow(peoLevel, 2) + 50 * peoLevel + 100
-				var pic = await kill.getProfilePicFromServer(qmid)
-				var namae = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? menUser.pushname : pushname)
-				var sts = await kill.getStatus(qmid)
-				var adm = groupAdmins.includes(qmid) ? 'Sim' : 'Não'
-				var muted = slce.includes(qmid) ? 'Sim' : 'Não'
-				var blocked = blockNumber.includes(qmid) ? 'Sim' : 'Não'
-				const { status } = sts
-				if (pic == undefined) { var pfp = errorurl } else { var pfp = pic }
-				await kill.sendFileFromUrl(from, pfp, 'pfo.jpg', mess.profile(namae, myMsg, adm, muted, blocked, status, peoLevel, peoXp, ineedxp, patente))
-			} else return kill.reply(from, mess.sogrupo(), id)
-			break
+					if (mentionedJidList.length !== 0) menUser = await kill.getContact(mentionedJidList[0])
+					await kill.reply(from, mess.wait(), id)
+					var qmid = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? menUser.id : user)
+					const peoXp = await gaming.getValue(qmid, nivel, 'xp')
+					const myMsg = await gaming.getValue(qmid, nivel, 'msg')
+					const peoLevel = await gaming.getValue(qmid, nivel, 'level')
+					const thecoinqtd = await gaming.getValue(qmid, nivel, 'coin')
+					var pic = await kill.getProfilePicFromServer(qmid)
+					var namae = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? menUser.pushname : pushname)
+					var sts = await kill.getStatus(qmid)
+					var adm = groupAdmins.includes(qmid) ? 'Sim' : 'Não'
+					var muted = functions[0].silence.includes(qmid) ? 'Sim' : 'Não'
+					var blocked = blockNumber.includes(qmid) ? 'Sim' : 'Não'
+					var { status } = sts;status == '' || status == '401' ? status = '' : status = `\n\n💌️ *Frase do recado?*\n${status}`
+					if (pic == null || typeof pic === 'object') { var pfp = errorurl } else { var pfp = pic }
+					var playerRole = await gaming.getPatent(peoLevel)
+					var customRec = '';var GodKillsToo = '';var fuckALLife = '';var getGirlfriend = '';var myGuild = '';var stateOrigin = '\n\n👪 *Clã:* '
+					if (region == 'en') { fuckALLife = fmylife;GodKillsToo = randomBible;getGirlfriend = getHappyness } else {
+						await translate(randomBible, region).then((bibles) => { GodKillsToo = bibles })
+						await translate(fmylife, region).then((lifes) => { fuckALLife = lifes })
+						await translate(getHappyness, region).then((love) => { getGirlfriend = love })
+					}
+					if (functions[0].black.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Black' } else if (functions[0].wolves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Wolves' }
+					const statesgp = await kill.getAllGroups()
+					for (let ids of statesgp) { const chatPersons = await kill.getGroupMembersId(`${ids.contact.id}`);if (chatPersons.includes(qmid)) { const groupInfo = await kill.getGroupInfo(`${ids.contact.id}`);stateOrigin += `\n➸ ${groupInfo.title}` } }
+					Object.keys(custom).forEach((i) => { if (custom[i].user == qmid) { customRec = `\n\n🌟 *Nota:* ${custom[i].msg}` } })
+					await kill.sendFileFromUrl(from, pfp, 'pfo.jpg', mess.profile(namae, myMsg, adm, muted, blocked, status, peoLevel, peoXp, getReqXP(peoLevel), playerRole) + `\n\n💴 *Í-Coin*: ${thecoinqtd}\n\n🏷️ *TAG:* #${theTagPorn}‎\n\n❇️ *Arma:* ${whatWeapon}‎\n\n📢 *Inspire-se:* ${theCitacion}‎\n\n💡 *Aprenda:* ${thisKillCats}‎\n\n🐏 *Versículo:* ${GodKillsToo}\n\n🔮 *Futuro:* ${fuckALLife}‎\n\n🌺 *Cantada:* ${getGirlfriend}\n\n🐂 *Tipo:* ${howGado}‎` + customRec + myGuild + stateOrigin, id)
+				} else return await kill.reply(from, mess.sogrupo(), id)
+				break
 				
 			case 'brainly':
 				if (args.length == 0) return await kill.reply(from, mess.noargs() + 'perguntas/preguntas/questions.', id)
