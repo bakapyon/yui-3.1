@@ -1921,28 +1921,8 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			case 'ping':
-				const rTime = (seconds) => {
-					const pad = (s) => { return (s < 10 ? '0' : '') + s }
-					var hours = Math.floor(seconds / (60*60)); var minutes = Math.floor(seconds % (60*60) / 60); var seconds = Math.floor(seconds % 60)
-					return `${pad(hours)} horas | ${pad(minutes)} minutos | ${pad(seconds)} segundos - HH:MM:SS`
-				}
-				const osUptime = () => {
-					var up_sec = os.uptime(); var up_min = up_sec / 60; var up_hour = up_min / 60; up_sec = Math.floor(up_sec); up_min = Math.floor(up_min); up_hour = Math.floor(up_hour); up_hour = up_hour % 60; up_min = up_min % 60; up_sec = up_sec % 60
-					return `${up_hour} horas | ${up_min} minutos | ${up_sec} segundos - HH:MM:SS`
-				}
-				const ramMemory = () => {
-					var allRam = os.totalmem(); var kbRam = allRam/1024; var mbRam = kbRam/1024; var gbRam = mbRam/1024; kbRam = Math.floor(kbRam); mbRam = Math.floor(mbRam); gbRam = Math.floor(gbRam); mbRam = mbRam%1024; kbRam = kbRam%1024; allRam = allRam%1024;
-					return `${gbRam}GB | ${mbRam}MB | ${kbRam}KB | ${allRam} Bytes`
-				}
-				const timeBot = rTime(process.uptime())
-				const loadedMsg = await kill.getAmountOfLoadedMessages()
-				const chatIds = await kill.getAllChatIds()
-				const groups = await kill.getAllGroups()
-				const zapVer = await kill.getWAVersion()
-				const botBat = await kill.getBatteryLevel()
-				const isEnergy = await kill.getIsPlugged()
-				await kill.reply(from, mess.stats(timeBot, osUptime, ramMemory, os, loadedMsg, groups, chatIds, processTime, t, moment, zapVer, botBat, isEnergy), id)
-				break
+            await kill.sendText(from, `Em operação!\n_Minha velocidade de resposta é de ${processTime(t, moment())} segundos._`)
+            break
 				
 			case 'join':
 				if (args.length == 0) return await kill.reply(from, mess.nolink(), id)
