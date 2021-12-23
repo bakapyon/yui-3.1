@@ -55,6 +55,7 @@
     "request": "^2.88.2",
     "sharp": "^0.27.2",
     "simple-play-store-search": "^1.0.2",
+    "sinesp-api": "^3.0.0",
     "xvdl": "^1.0.3",
     "youtube-dl-exec": "^1.2.3",
     "yt-search": "^2.9.0"
