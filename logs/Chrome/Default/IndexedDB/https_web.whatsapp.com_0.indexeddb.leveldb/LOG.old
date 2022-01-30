@@ -1,0 +1,12 @@
+2022/01/30-19:58:46.502 1374 Reusing MANIFEST C:\Users\Pyon\Desktop\yui Multi Device\logs\Chrome\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2022/01/30-19:58:46.503 1374 Recovering log #6
+2022/01/30-19:58:46.672 1374 Reusing old log C:\Users\Pyon\Desktop\yui Multi Device\logs\Chrome\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000006.log 
+2022/01/30-19:58:59.889 d10 Level-0 table #11: started
+2022/01/30-19:59:00.248 d10 Level-0 table #11: 1071123 bytes OK
+2022/01/30-19:59:00.395 d10 Delete type=0 #6
+2022/01/30-19:59:10.984 124c Compacting 1@1 + 1@2 files
+2022/01/30-19:59:11.186 124c Generated table #12@1: 14793 keys, 1065993 bytes
+2022/01/30-19:59:11.186 124c Compacted 1@1 + 1@2 files => 1065993 bytes
+2022/01/30-19:59:11.229 124c compacted to: files[ 0 0 1 0 0 0 0 ]
+2022/01/30-19:59:11.229 124c Delete type=2 #8
+2022/01/30-19:59:11.229 124c Delete type=2 #11
