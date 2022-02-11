@@ -129,4 +129,4 @@ const start = async (kill = new Client()) => {
 }
 
 // Cria uma sessão da Íris
-create(options(start)).then((kill) => start(kill)).catch((err) => console.error(err)
+create(options(start)).then((kill) => start(kill)).catch((err) => console.error(err))
