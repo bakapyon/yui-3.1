@@ -128,5 +128,5 @@ const start = async (kill = new Client()) => {
 
 }
 
-// Cria uma sessão da Íris
+// Cria uma sessão da Yui
 create(options(start)).then((kill) => start(kill)).catch((err) => console.error(err))
