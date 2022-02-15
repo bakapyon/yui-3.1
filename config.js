@@ -640,7 +640,7 @@ module.exports = kconfig = async (kill, message) => {
 				if (isGroupMsg) return await kill.reply(from, mess.sopv(), id)
 				await kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/Hop7HMRAipPLX1Pr0aD8yx', '\nEsse é o grupo principal da Yui.')
 				break
-				
+
 			case 'revoke':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
 				if (!isGroupAdmins) return await kill.reply(from, mess.soademiro(), id)
@@ -1552,7 +1552,7 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, mess.scep(cep), id)
 				break
 				
-			case 'everyone':
+			case 'everyone':;case 'todos':;case 'all':
 				if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
 					let hehe = `═✪〘 🖊️ - ${body.slice(10)} - 🐂 〙✪═\n\n`
 					for (let i = 0; i < groupMembers.length; i++) { hehe += `- @${groupMembers[i].id.replace(/@c.us/g, '')}\n` }
@@ -1921,8 +1921,28 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			case 'ping':
-            await kill.sendText(from, `Em operação!\n_Minha velocidade de resposta é de ${processTime(t, moment())} segundos._`)
-            break
+				const rTime = (seconds) => {
+					const pad = (s) => { return (s < 10 ? '0' : '') + s }
+					var hours = Math.floor(seconds / (60*60)); var minutes = Math.floor(seconds % (60*60) / 60); var seconds = Math.floor(seconds % 60)
+					return `${pad(hours)} horas | ${pad(minutes)} minutos | ${pad(seconds)} segundos - HH:MM:SS`
+				}
+				const osUptime = () => {
+					var up_sec = os.uptime(); var up_min = up_sec / 60; var up_hour = up_min / 60; up_sec = Math.floor(up_sec); up_min = Math.floor(up_min); up_hour = Math.floor(up_hour); up_hour = up_hour % 60; up_min = up_min % 60; up_sec = up_sec % 60
+					return `${up_hour} horas | ${up_min} minutos | ${up_sec} segundos - HH:MM:SS`
+				}
+				const ramMemory = () => {
+					var allRam = os.totalmem(); var kbRam = allRam/1024; var mbRam = kbRam/1024; var gbRam = mbRam/1024; kbRam = Math.floor(kbRam); mbRam = Math.floor(mbRam); gbRam = Math.floor(gbRam); mbRam = mbRam%1024; kbRam = kbRam%1024; allRam = allRam%1024;
+					return `${gbRam}GB | ${mbRam}MB | ${kbRam}KB | ${allRam} Bytes`
+				}
+				const timeBot = rTime(process.uptime())
+				const loadedMsg = await kill.getAmountOfLoadedMessages()
+				const chatIds = await kill.getAllChatIds()
+				const groups = await kill.getAllGroups()
+				const zapVer = await kill.getWAVersion()
+				const botBat = await kill.getBatteryLevel()
+				const isEnergy = await kill.getIsPlugged()
+				await kill.reply(from, mess.stats(timeBot, osUptime, ramMemory, os, loadedMsg, groups, chatIds, processTime, t, moment, zapVer, botBat, isEnergy), id)
+				break
 				
 			case 'join':
 				if (args.length == 0) return await kill.reply(from, mess.nolink(), id)
@@ -2045,7 +2065,7 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.sendTextWithMentions(from, hih)
 				break
 				
-			case 'shutdown':;case 'encerrar':
+			case 'shutdown':;case 'encerrar':;case 'reset':
 				if (!isOwner) return await kill.reply(from, mess.sodono(), id)
 				var timeToShut = 10; var theTimeVis = '10'
 				if (!isNaN(args[0])) { timeToShut = Number(args[0]) * 1000;theTimeVis = args[0] }
@@ -2671,7 +2691,8 @@ module.exports = kconfig = async (kill, message) => {
 				} else return await kill.reply(from, mess.soademiro(), id)
 				break
 				
-			case 'level':; case 'l':
+			case 'level':
+			case 'l':	
 				if (!isxp) return await kill.reply(from, mess.needxpon(), id)
 				if (mentionedJidList.length !== 0) lvlusrph = await kill.getContact(mentionedJidList[0])
 				var yourName = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? lvlusrph.pushname : pushname)
@@ -2758,7 +2779,8 @@ module.exports = kconfig = async (kill, message) => {
 				}
 				break
 				
-			case 'ranking':;case 'p':
+			case 'ranking':
+			case 'P':	
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
 				nivel.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
 				let board = '-----[ *RANKING DE XP* ]----\n\n'
@@ -2840,7 +2862,8 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.sendTextWithMentions(from, `@${user.replace('@c.us', '')}`)
 				break
 				
-			case 'nivel':;case 'n':
+			case 'nivel':
+			case 'n':	
 				var qualDeles = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? mentionedJidList[0] : user)
 				if (mentionedJidList.length !== 0) lvlusrnl = await kill.getContact(mentionedJidList[0])
 				var yourfkName = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? lvlusrnl.pushname : pushname)
@@ -4197,6 +4220,7 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			case 'tictac':
+			case '#':	
 				if (args.length == 0 || args[0].toLowerCase() == '-help') return await kill.reply(from, mess.tictactoe(), id);const jogadaPlayer = args[0].toLowerCase()
 				const theplayer2 = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? mentionedJidList[0] : null)
 				if (theplayer2 !== null) isValidGame = 1
@@ -4319,7 +4343,7 @@ module.exports = kconfig = async (kill, message) => {
 				
 			case 'wolfs':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
-				let claladrao = '----- [ *GUILDA WOLFS* ] -----\n\n'
+				let claladrao = '----- [ *GUILDA wolfs* ] -----\n\n'
 				try {
 					for (let i = 0; i < functions[0].wolfs.length; i++) {
 						const identladrao = await kill.getContact(functions[0].wolfs[i])
@@ -4329,13 +4353,13 @@ module.exports = kconfig = async (kill, message) => {
 					await kill.sendText(from, claladrao)
 				} catch (error) { 
 					await kill.reply(from, mess.fail(), id)
-					console.log(color('[wOLFS]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
+					console.log(color('[wolfs]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
 				}
 				break
 				
 			case 'dragons':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
-				let clacompnos = '----- [ *GUILDA DRAGONS* ] -----\n\n'
+				let clacompnos = '----- [ *GUILDA dragons* ] -----\n\n'
 				try {
 					for (let i = 0; i < functions[0].dragons.length; i++) {
 						const aGoodMan = await kill.getContact(functions[0].dragons[i])
@@ -4345,7 +4369,7 @@ module.exports = kconfig = async (kill, message) => {
 					await kill.sendText(from, clacompnos)
 				} catch (error) { 
 					await kill.reply(from, mess.fail(), id)
-					console.log(color('[DRAGONS]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
+					console.log(color('[dragons]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
 				}
 				break
 				
@@ -4358,7 +4382,12 @@ module.exports = kconfig = async (kill, message) => {
 				for (let i = 0; i < ddds.data.cities.length; i++) { dddlist += `${i + 1} → *${ddds.data.cities[i]}*\n\n` }
 				await kill.reply(from, dddlist, id)
 				break
-
+				
+			// Para usar a base remova o /* e o */ e bote um nome dentro das aspas da case e em seguida sua mensagem dentro das aspas na frente do from
+			/*case 'Nome do comando sem espaços':
+				await kill.reply(from, 'Sua mensagem', id)
+				break*/
+			
 			case 'pato':
 				await kill.reply(from, 'lib/media/audio/pato.mp3', id)
 				break
@@ -4374,12 +4403,7 @@ module.exports = kconfig = async (kill, message) => {
 			case 'oi':
 					await kill.sendFile(from, 'lib/media/audio/oiii.mp3', id)
 					break	
-				
-			// Para usar a base remova o /* e o */ e bote um nome dentro das aspas da case e em seguida sua mensagem dentro das aspas na frente do from
-			/*case 'Nome do comando sem espaços':
-				await kill.reply(from, 'Sua mensagem', id)
-				break*/
-				
+
 			default:
 				if (isCmd) {
 					var havEaCmd = 0;for (let o = 0; o < cmds.length; o++) { if (Object.keys(cmds[o]) == command) { Object.keys(cmds[o]).forEach(async (i) => { await kill.reply(from, cmds[o][i], id) });havEaCmd = 1;break } }
