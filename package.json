@@ -17,7 +17,7 @@
     "url": "https://github.com/bakapyon"
   },
   "engines": {
-    "node": "16.x"
+    "node": "14.16.1"
   },
   "homepage": "https://github.com/bakapyon",
   "license": "MIT",
