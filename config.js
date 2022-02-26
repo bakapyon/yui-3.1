@@ -1333,7 +1333,7 @@ module.exports = kconfig = async (kill, message) => {
 						await translate(fmylife, region).then((lifes) => { fuckALLife = lifes })
 						await translate(getHappyness, region).then((love) => { getGirlfriend = love })
 					}
-					if (functions[0].wolfs.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* wolfs' } else if (functions[0].dragons.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* dragons' }
+					if (functions[0].thieves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Thieves' } else if (functions[0].companions.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Companions' }
 					const statesgp = await kill.getAllGroups()
 					for (let ids of statesgp) { const chatPersons = await kill.getGroupMembersId(`${ids.contact.id}`);if (chatPersons.includes(qmid)) { const groupInfo = await kill.getGroupInfo(`${ids.contact.id}`);stateOrigin += `\n➸ ${groupInfo.title}` } }
 					Object.keys(custom).forEach((i) => { if (custom[i].user == qmid) { customRec = `\n\n🌟 *Nota:* ${custom[i].msg}` } })
