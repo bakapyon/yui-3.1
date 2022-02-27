@@ -112,7 +112,7 @@ const start = async (kill = new Client()) => {
 				if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
 				const bye = await new canvas.Goodbye().setUsername(pushname).setDiscriminator(event.who.substring(6, 10)).setMemberCount(groupMetadata.participants.length).setGuildName(name).setAvatar(profile).setText("title", `ADEUS`).setText("message", `SAIU DO {server}`).setText("member-count", `ELE FOI O MEMBRO N° {count}`).setColor('border', '#00100C').setColor('username-box', '#00100C').setColor('discriminator-box', '#00100C').setColor('message-box', '#00100C').setColor('title', '#6577AF').setOpacity("username-box", 0.6).setOpacity("discriminator-box", 0.6).setOpacity("message-box", 0.6).setOpacity("border", 0.4).setBackground('https://images.wallpaperscraft.com/image/landscape_art_road_127350_1280x720.jpg').toAttachment()
 				await kill.sendFile(event.chat, `data:image/png;base64,${bye.toBuffer().toString('base64')}`, 'welcome.png', mylang(config.Language).bye(pushname))
-				await kill.sendPtt(event.chat, 'lib/media/audio/bye.mp3')
+				await kill.sendPtt(event.chat, 'lib/media/audio/bye.mpeg')
 				abayo = 0
 				console.log(color('[SAIU/BAN]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) saiu ou foi banido do grupo ${name}...`, 'yellow'))
 			}
