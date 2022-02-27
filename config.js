@@ -640,7 +640,7 @@ module.exports = kconfig = async (kill, message) => {
 				if (isGroupMsg) return await kill.reply(from, mess.sopv(), id)
 				await kill.sendLinkWithAutoPreview(from, 'https://chat.whatsapp.com/Hop7HMRAipPLX1Pr0aD8yx', '\nEsse é o grupo principal da Yui.')
 				break
-
+				
 			case 'revoke':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
 				if (!isGroupAdmins) return await kill.reply(from, mess.soademiro(), id)
@@ -949,7 +949,8 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			case 'criador':
-				await kill.reply(from, `☀️ - Host: https://wa.me/${config.Owner[0].replace('@c.us', '')} `, id)
+				await kill.reply(from, `☀️ - Host: https://wa.me/${config.Owner[0].replace('@c.us', '')}\n🌙 - Dev: Lucas R. - KillovSkyᴸᶻ [https://github.com/KillovSky/yui]`, id)
+				await kill.reply(from, mess.everhost(), id)
 				break
 				
 			case 'akinator':;case 'aki':
@@ -1333,7 +1334,7 @@ module.exports = kconfig = async (kill, message) => {
 						await translate(fmylife, region).then((lifes) => { fuckALLife = lifes })
 						await translate(getHappyness, region).then((love) => { getGirlfriend = love })
 					}
-					if (functions[0].thieves.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Thieves' } else if (functions[0].companions.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* Companions' }
+					if (functions[0].wolfs.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* wolfs' } else if (functions[0].dragons.includes(qmid)) { myGuild = '\n\n⚔️ *Guilda:* dragons' }
 					const statesgp = await kill.getAllGroups()
 					for (let ids of statesgp) { const chatPersons = await kill.getGroupMembersId(`${ids.contact.id}`);if (chatPersons.includes(qmid)) { const groupInfo = await kill.getGroupInfo(`${ids.contact.id}`);stateOrigin += `\n➸ ${groupInfo.title}` } }
 					Object.keys(custom).forEach((i) => { if (custom[i].user == qmid) { customRec = `\n\n🌟 *Nota:* ${custom[i].msg}` } })
@@ -1552,7 +1553,7 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, mess.scep(cep), id)
 				break
 				
-			case 'everyone':;case 'todos':;case 'all':
+			case 'everyone':
 				if (isGroupMsg && isGroupAdmins || isGroupMsg && isOwner) {
 					let hehe = `═✪〘 🖊️ - ${body.slice(10)} - 🐂 〙✪═\n\n`
 					for (let i = 0; i < groupMembers.length; i++) { hehe += `- @${groupMembers[i].id.replace(/@c.us/g, '')}\n` }
@@ -2520,13 +2521,6 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, mess.maker(), id)
 				break
 				
-			// LEMBRE-SE, REMOVER CRÈDITO È CRIME E PROIBIDO!
-			case 'termos':
-				await kill.sendFileFromUrl(from, 'https://i.ibb.co/nczyDbx/licenca.png', 'licenca.png', mess.tos(), id)
-				await kill.sendPtt(from, `https://www.myinstants.com/media/sounds/resident-evil-4-merchant-thank-you.mp3`, id);await kill.reply(from, mess.everhost(), id)
-				break
-			// NÃO REMOVA ESSA PARTE!
-				
 			case 'cmd':
 				if (!isOwner) return await kill.reply(from, mess.sodono(), id)
 				await kill.reply(from, mess.cmd(), id)
@@ -2691,8 +2685,7 @@ module.exports = kconfig = async (kill, message) => {
 				} else return await kill.reply(from, mess.soademiro(), id)
 				break
 				
-			case 'level':
-			case 'l':	
+			case 'level':;case 'l':
 				if (!isxp) return await kill.reply(from, mess.needxpon(), id)
 				if (mentionedJidList.length !== 0) lvlusrph = await kill.getContact(mentionedJidList[0])
 				var yourName = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? lvlusrph.pushname : pushname)
@@ -2779,8 +2772,7 @@ module.exports = kconfig = async (kill, message) => {
 				}
 				break
 				
-			case 'ranking':
-			case 'P':	
+			case 'ranking':;case 'players':
 				if (!isGroupMsg) return await kill.reply(from, mess.sogrupo(), id)
 				nivel.sort((a, b) => (a.xp < b.xp) ? 1 : -1)
 				let board = '-----[ *RANKING DE XP* ]----\n\n'
@@ -2862,8 +2854,7 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.sendTextWithMentions(from, `@${user.replace('@c.us', '')}`)
 				break
 				
-			case 'nivel':
-			case 'n':	
+			case 'nivel':;case 'n':
 				var qualDeles = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? mentionedJidList[0] : user)
 				if (mentionedJidList.length !== 0) lvlusrnl = await kill.getContact(mentionedJidList[0])
 				var yourfkName = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? lvlusrnl.pushname : pushname)
@@ -2904,7 +2895,7 @@ module.exports = kconfig = async (kill, message) => {
 				break
 				
 			// Obrigado pela base Jon
-			case 'wallhaven':;case 'wallpaper':
+			case 'wallhaven':;case 'wallpaper':;case 'wall':
 				if (args.length == 0) return await kill.reply(from, mess.noargs() + 'wallpaper name/nome/nombre.', id)
 				await kill.reply(from, mess.wait(), id)
 				try {
@@ -3482,7 +3473,7 @@ module.exports = kconfig = async (kill, message) => {
 				}
 				break
 				
-			case 'steal':
+			case 'steal':;case 'roubar':
 				if (!isxp) return await kill.reply(from, mess.needxpon(), id)
 				if (mentionedJidList.length == 0 && !quotedMsg) return await kill.reply(from, mess.semmarcar(), id)
 				const noStealTm = await gaming.getLimit(user, daily)
@@ -4219,8 +4210,7 @@ module.exports = kconfig = async (kill, message) => {
 				} else return await kill.reply(from, mess.sogrupo(), id)
 				break
 				
-			case 'tictac':
-			case '#':	
+			case 'tictac':;case '#':
 				if (args.length == 0 || args[0].toLowerCase() == '-help') return await kill.reply(from, mess.tictactoe(), id);const jogadaPlayer = args[0].toLowerCase()
 				const theplayer2 = quotedMsg ? quotedMsgObj.sender.id : (mentionedJidList.length !== 0 ? mentionedJidList[0] : null)
 				if (theplayer2 !== null) isValidGame = 1
@@ -4397,13 +4387,17 @@ module.exports = kconfig = async (kill, message) => {
 				break
 					
 			case 'triste':
-				await kill.sendFile(from, 'lib/media/audio/tururu.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/triste.mp3', id)
 				break
+
+			case 'bv':
+				await kill.sendFile(from, 'lib/media/audio/bv.mp3', id)
+				break	
 					
 			case 'oi':
-					await kill.sendFile(from, 'lib/media/audio/oiii.mp3', id)
-					break	
-
+				await kill.sendFile(from, 'lib/media/audio/oi.mp3', id)
+				break	
+				
 			default:
 				if (isCmd) {
 					var havEaCmd = 0;for (let o = 0; o < cmds.length; o++) { if (Object.keys(cmds[o]) == command) { Object.keys(cmds[o]).forEach(async (i) => { await kill.reply(from, cmds[o][i], id) });havEaCmd = 1;break } }
