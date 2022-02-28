@@ -4379,7 +4379,7 @@ module.exports = kconfig = async (kill, message) => {
 				break*/
 			
 			case 'pato':
-				await kill.reply(from, 'lib/media/audio/pato.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/pato.mp3', id)
 				break
 					
 			case 'puta':
@@ -4391,7 +4391,7 @@ module.exports = kconfig = async (kill, message) => {
 				break
 
 			case 'bv':
-				await kill.sendFile(from, 'lib/media/audio/bv.mp3', id)
+				await kill.sendFile(from, 'lib/media/audio/bv.ogg', id)
 				break	
 					
 			case 'oi':
