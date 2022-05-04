@@ -981,7 +981,7 @@ module.exports = kconfig = async (kill, message) => {
 				
 			// Se quiser adicione respostas na reply.txt ou use o comando '/resposta', Yui também consegue adicionar ela mesma sozinha
 			case 'yui':
-					if (args.length == 0) return await kill.reply(from, chatBotR, id)
+				if (args.length == 0) return await kill.reply(from, chatBotR, id)
 				try {
 					if (args[0].toLowerCase() == '-g') {
 						await exec(`cd lib/config/Utilidades && bash -c 'grep -i "${args[1]}" reply.txt | shuf -n 1'`, async (error, stdout, stderr) => {
@@ -993,6 +993,17 @@ module.exports = kconfig = async (kill, message) => {
 						const yui = await axios.get(`http://simsumi.herokuapp.com/api?text=${encodeURIComponent(body.slice(6))}&lang=${region}`)
 						if (yui.data.success == 'Limit 50 queries per hour.' || yui.data.success == '' || yui.data.success == null) {
 							await kill.reply(from, chatBotR, id)
+						} else {
+							if (yui.data.success == 'Curta a pagina Gamadas por Bieber no facebook ;)') return await kill.reply(from, 'Oi sua gostosa, como vai?', id)
+							await kill.reply(from, yui.data.success, id)
+							await fs.appendFile('./lib/config/Utilidades/reply.txt', `\n${yui.data.success}`)
+						}
+					}
+				} catch (error) { 
+					await kill.reply(from, chatBotR, id)
+					console.log(color('[yui]', 'crimson'), color(`→ Obtive erros no comando ${prefix}${command} → ${error.message} - Você pode ignorar.`, 'gold'))
+				}
+				break
 				
 			case 'speak':
 				const sppt = require('node-gtts')(region);const speakttplc = `./lib/media/audio/resPtm${lvpc}.mp3`
