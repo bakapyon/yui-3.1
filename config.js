@@ -981,29 +981,18 @@ module.exports = kconfig = async (kill, message) => {
 				
 			// Se quiser adicione respostas na reply.txt ou use o comando '/resposta', Yui também consegue adicionar ela mesma sozinha
 			case 'yui':
-					if (args.length == 0 || !tools('others').isUrl(config.SimSimi_Host)) return await kill.reply(from, tools('others').getRandLine(1, './lib/config/Utilidades/reply.txt')[0], id)
-					try {
-						if (argl[0] == '-g') {
-							let awnser = await shell.exec(`bash -c "grep -i '${args[1]}' './lib/config/Utilidades/reply.txt' | shuf -n 1"`, {
-								silent: true
-							}).stdout
-							if (awnser == '') {
-								await kill.reply(from, tools('others').getRandLine(1, './lib/config/Utilidades/reply.txt')[0], id)
-							} else return await kill.reply(from, awnser, id)
-						} else {
-							const iris = await axios.get(`${config.SimSimi_Host}?key=${tools('others').randVal(config.API_SimSimi)}&lc=${region}&text=${encodeURIComponent(body.slice(6))}`)
-							if (iris.data.result !== '100') {
-								await kill.reply(from, tools('others').getRandLine(1, './lib/config/Utilidades/reply.txt')[0], id)
-							} else {
-								await kill.reply(from, yui.data.response, id)
-								fs.appendFile('./lib/config/Utilidades/reply.txt', `\n${iris.data.response}`)
-							}
-						}
-					} catch (error) {
-						tools('others').reportConsole(command, error)
-						await kill.reply(from, mess.fail(command, error, time), id)
-					}
-				break
+					if (args.length == 0) return await kill.reply(from, chatBotR, id)
+				try {
+					if (args[0].toLowerCase() == '-g') {
+						await exec(`cd lib/config/Utilidades && bash -c 'grep -i "${args[1]}" reply.txt | shuf -n 1'`, async (error, stdout, stderr) => {
+							if (error || stderr || stdout == null || stdout == '') {
+								await kill.reply(from, chatBotR, id)
+							} else return await kill.reply(from, stdout, id)
+						})
+					} else {
+						const yui = await axios.get(`http://simsumi.herokuapp.com/api?text=${encodeURIComponent(body.slice(6))}&lang=${region}`)
+						if (yui.data.success == 'Limit 50 queries per hour.' || yui.data.success == '' || yui.data.success == null) {
+							await kill.reply(from, chatBotR, id)
 				
 			case 'speak':
 				const sppt = require('node-gtts')(region);const speakttplc = `./lib/media/audio/resPtm${lvpc}.mp3`
